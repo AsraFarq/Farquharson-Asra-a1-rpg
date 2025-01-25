@@ -1,49 +1,81 @@
-﻿//player wakes up in a forest
+﻿//Forest Game !!
 
 using System;
 
-Console.WriteLine("You awaken in a cold and dreary forest. its dark and you begin to shiver the longer you stay in thus spot.");
-
-// player options they have to proceed
-// add health bar (assignment operators) add stamina bar
-Console.WriteLine("To the [left] there seems to be a path, it looks man made as if its simply from the feet of those who have explored the forest before you.");
-Console.WriteLine("You could also go [right] to where you hear the woosh of water. maybe it is a river?.");
-Console.WriteLine("Which way do you choose to go?");
-
-// player input
-string input = Console.ReadLine();
-
-// players response, go in different directions
-if (input.ToLower() == "left")
 {
-    //forest path
-    Console.WriteLine("You decide to go down the path! You can feel the hairs on your neck rise as you push through. bushes and branches scratch you as you walk forward. You hear a snap behind you, as if someone.. or SOMETHING stepped on a twig.. and opon hearing it you run with all your might. You only stop running once your lungs burn and you can't anymore..");
-    Console.WriteLine("You look around at the already unfamiliar forest to only feel more scared. You're lost! You feel the hairs on your neck rise again as you shake in your spot.. before you can even turn you're lunged at!");
-    Console.WriteLine("Scream or say your final words! it's your last chance too!!");
+        // Initial player stats
+        int health = 100;
+        int stamina = 100;
+        bool hasTotem = false; // Tracks if the player collects the totem
 
-    string message;
-    message = Console.ReadLine();
-    // try to line break each scream
-    Console.Write(message);
-    Console.Write(" ");
- 
-    Console.Write(message);
-    Console.Write(" ");
-    
-    Console.Write(message);
-    Console.Write(" ");
+        // Opening narrative
+        Console.WriteLine("You awaken in a cold and dreary forest. It's dark, and you begin to shiver the longer you stay in this spot.");
+        Console.WriteLine($"Your current stats: Health = {health}, Stamina = {stamina}");
 
-    Console.WriteLine("Your scream echo's out into the forrest as whatever monster found you... eats you alive.");
+        // Player's choices
+        Console.WriteLine("To the [left], there seems to be a man-made path, worn by the feet of those who explored the forest before you.");
+        Console.WriteLine("To the [right], you hear the whoosh of water—perhaps a river?");
+        Console.WriteLine("Which way do you choose to go?");
 
-}
-else if (input == "right")
-{
-    // step 6: mountain path
-    Console.WriteLine("You choose the mountain. enjoy your hike up!");
-    // add in totem to be picked up... maybe use thing from module 2 sildeshow???
-}
-else
-{
-    // step 7: invalid option
-    Console.WriteLine("you did not choose [right] or [left]... bye!");
-}
+        // Player input
+        string input = Console.ReadLine().ToLower();
+
+        if (input == "left")
+        {
+            // Forest path
+            Console.WriteLine("You decide to go down the path! Bushes and branches scratch you as you push forward.");
+            health -= 10; // Taking damage from the environment
+            Console.WriteLine($"The journey is rough, and your health decreases to {health}.");
+
+            Console.WriteLine("Suddenly, you hear a snap behind you. Something stepped on a twig. Panicked, you run with all your might!");
+            stamina -= 30; // Losing stamina from running
+            Console.WriteLine($"After running until your lungs burn, your stamina decreases to {stamina}.");
+
+            Console.WriteLine("Before you can recover, a monster lunges at you!");
+            Console.WriteLine("Scream or say your final words!");
+
+            string message = Console.ReadLine();
+            Console.WriteLine($"{message}! {message}! {message}!");
+            Console.WriteLine("Your screams echo through the forest as the monster attacks you... You did not survive.");
+        }
+        else if (input == "right")
+        {
+            // River path
+            Console.WriteLine("You choose the river path. The sound of water grows louder as you approach.");
+
+            Console.WriteLine("You find a strange totem near the riverbank. Do you pick it up? [yes/no]");
+            string totemChoice = Console.ReadLine().ToLower();
+
+            if (totemChoice == "yes")
+            {
+                hasTotem = true;
+                Console.WriteLine("You picked up the totem. It glows faintly in your hand.");
+            }
+            else
+            {
+                Console.WriteLine("You decide to leave the totem behind.");
+            }
+
+            Console.WriteLine("As you drink water to replenish your energy, you feel a little better.");
+            health += 20;
+            stamina += 20;
+            Console.WriteLine($"Your current stats: Health = {health}, Stamina = {stamina}");
+
+            if (hasTotem)
+            {
+                Console.WriteLine("The totem starts vibrating and a faint light guides you to safety. You survive the forest!");
+            }
+            else
+            {
+                Console.WriteLine("Without the totem, you wander the forest aimlessly, unsure of how to escape.");
+            }
+        }
+        else
+        {
+            // Invalid choice
+            Console.WriteLine("You did not choose [left] or [right]. The forest consumes you as you stand indecisively.");
+        }
+
+        // Game over message
+        Console.WriteLine("Game Over. Thanks for playing!");
+    }
